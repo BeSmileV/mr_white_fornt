@@ -1,10 +1,13 @@
+'use client'
+
 import {TableStyle} from "../styles";
 import {clsx} from "clsx";
 
 export type TableCellType = { label: string, type?: 'info' | 'data' }
-export type TableRow = TableCellType[]
+export type TableRowType = TableCellType[]
+export type TableType = TableRowType[]
 export type TableProps = {
-    table: TableRow[],
+    table: TableType,
 }
 
 function TableCell({cell}: { cell: TableCellType }) {
@@ -21,7 +24,7 @@ function TableCell({cell}: { cell: TableCellType }) {
     return <td className={className}>{cell.label}</td>
 }
 
-function TableRow({row}: { row: TableRow }) {
+function TableRow({row}: { row: TableRowType }) {
     return <tr className={TableStyle.row}>{row.map((cell, i) => <TableCell cell={cell} key={i}/>)}</tr>
 }
 

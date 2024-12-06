@@ -1,0 +1,33 @@
+@use 'src/styles' as *;
+
+.table {
+  width: 100%;
+  height: fit-content;
+}
+
+.row {
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.cell {
+  display: flex;
+
+  &.info {
+    @include fnt($size: 14, $line-height: 16, $weight: 400, $color: $gray-500);
+
+    &::after {
+      content: '';
+      flex: 1;
+      align-self: center;
+      border-top: 1px dotted $gray-300;
+    }
+  }
+
+  &.data {
+    @include fnt($size: 14, $line-height: 16, $weight: 400, $color: $black);
+  }
+}

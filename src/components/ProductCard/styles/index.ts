@@ -1,0 +1,1 @@
+export {default as ProductCardStyle} from './ProductCard.module.scss'

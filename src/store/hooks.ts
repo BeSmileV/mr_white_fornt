@@ -1,7 +1,18 @@
-import { useDispatch, useSelector, useStore } from 'react-redux'
-import type { AppDispatch, AppStore, RootState } from './store'
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import type { AppDispatch, AppStore, RootState } from './store';
 
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
-export const useAppSelector = useSelector.withTypes<RootState>()
-export const useAppStore = useStore.withTypes<AppStore>()
+// Типизированные хуки
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: <TSelected>(
+    selector: (state: RootState) => TSelected
+) => TSelected = useSelector;
+export const useAppStore: () => AppStore = useStore;
+
+// Хук для создания функции действия
+export const useActionSlice = (actionCreator: (value?: any) => any) => {
+    const dispatch = useAppDispatch();
+
+    return (value?: any) => {
+        dispatch(actionCreator(value));
+    };
+};

@@ -1,0 +1,16 @@
+body {
+  * {
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-sizing: border-box;
+  }
+
+  overflow: hidden;
+
+  button {
+    cursor: pointer;
+  }
+}

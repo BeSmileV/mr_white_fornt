@@ -1,0 +1,1 @@
+export {default as HeaderStyle} from './Header.module.scss'

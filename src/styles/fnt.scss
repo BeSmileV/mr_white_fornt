@@ -1,0 +1,18 @@
+@mixin fnt(
+  $size: 16,
+  $line-height: 24,
+  $color: black,
+  $weight: 400,
+  $stretch: normal,
+  $style: normal,
+  $variant: normal,
+) {
+  font-size: #{$size}px;
+  line-height: #{$line-height}px;
+  color: $color;
+  font-weight: $weight;
+  font-family: 'Arial', sans-serif;
+  font-stretch: $stretch;
+  font-style: $style;
+  font-variant: $variant;
+}
