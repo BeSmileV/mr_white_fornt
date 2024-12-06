@@ -1,7 +1,7 @@
 export default function page() {
     return (
         <div>
-            Main Page
+            Login
         </div>
     )
 }
