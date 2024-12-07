@@ -3,30 +3,23 @@
 import {Header, ProductCard} from "@/components";
 import MainStyle from './main.module.scss'
 import {useRouter} from "next/navigation";
-import {addToCart, deleteFromCart, ProductType, selectCart, useActionSlice, useAppSelector} from "@/store";
+import {useEffect, useState} from "react";
+import getProductList, {GetProductListResponseType} from "@/api/getProductList";
+import {GetCartResponseType} from "@/api/getCart";
+import {addToCartRequest, deleteCartItemRequest, getCart} from "@/api";
 
-export default function page() {
-    const cart = useAppSelector(selectCart)
-    const addToCartAction = useActionSlice(addToCart)
-    const deleteFromCartAction = useActionSlice(deleteFromCart)
-
+export default function Page() {
     const router = useRouter()
+    const [cart, setCart] = useState<GetCartResponseType>({items: [], total_price: 0} as unknown as GetCartResponseType)
+    const [products, setProducts] = useState<GetProductListResponseType>([])
 
-    const products: ProductType[] = [
-        {id: 1, name: 'test 1', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 2, name: 'test 2', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 3, name: 'test 3', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 4, name: 'test 4', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 5, name: 'test 5', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 6, name: 'test 6', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 7, name: 'test 7', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 8, name: 'test 8', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 9, name: 'test 9', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-        {id: 10, name: 'test 10', count: 11, cost: '123123', imgs: ['./file.svg', './globe.svg', './next.svg',]},
-    ]
+    useEffect(() => {
+        getProductList().then(data => setProducts(data || []))
+        getCart().then(data => data && setCart(data))
+    }, [])
 
     const isInCart = (id: number) => {
-        return !!cart.find(item => item.id === id)
+        return !!cart.items.find(item => item.product.id === id)
     }
 
     return (
@@ -34,14 +27,31 @@ export default function page() {
             <Header/>
             <div className={MainStyle.productList}>
                 {products.map((item, i) => <ProductCard productName={item.name}
-                                                        cost={item.cost}
-                                                        imgs={item.imgs}
+                                                        cost={String(item.price)}
+                                                        imgs={item.images}
                                                         onClick={() => router.push(`/${item.id}`)}
-                                                        onBuy={() => {
+                                                        onBuy={async () => {
                                                             if (isInCart(item.id)) {
-                                                                deleteFromCartAction(item.id)
+                                                                const response = await deleteCartItemRequest(item.id)
+                                                                if (response) {
+                                                                    setCart(prevState => {
+                                                                        const newState = {...prevState}
+                                                                        newState.items = newState.items.filter(curProduct => curProduct.product.id !== item.id)
+                                                                        return newState
+                                                                    })
+                                                                }
                                                             } else {
-                                                                addToCartAction(item)
+                                                                const response = await addToCartRequest(item.id)
+                                                                if (response) {
+                                                                    setCart(prevState => {
+                                                                        const newState = {...prevState}
+                                                                        newState.items = [...newState.items, {
+                                                                            product: item,
+                                                                            quantity: 1
+                                                                        }]
+                                                                        return newState
+                                                                    })
+                                                                }
                                                             }
                                                         }}
                                                         isInCart={isInCart(item.id)}

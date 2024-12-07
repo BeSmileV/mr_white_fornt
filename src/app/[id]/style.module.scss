@@ -13,23 +13,60 @@
 
 .header {
   width: 100%;
+
   display: flex;
-  flex-direction: column;
+  gap: 20px;
 
-  padding: 20px 150px;
+  .backButton {
+    width: fit-content;
+    height: fit-content;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 20px;
+    padding: 10px;
+    border-radius: 8px;
+
+    svg {
+      flex: none;
+      width: 20px;
+      height: 20px;
+
+      * {
+        stroke: $gray-400;
+      }
+    }
+
+    &:hover {
+      background-color: $gray-100;
+    }
+
+  }
+
+  .title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    padding: 20px 0;
+
+    .name {
+      width: 100%;
+      text-align: start;
+      @include fnt($size: 24, $line-height: 32, $weight: 600, $color: $black);
+    }
+
+    .code {
+      width: 100%;
+      text-align: end;
+      @include fnt($size: 14, $line-height: 16, $weight: 600, $color: $gray-500);
+    }
+  }
+
   border-bottom: 1px solid $gray-300;
-
-  .name {
-    width: 100%;
-    text-align: start;
-    @include fnt($size: 24, $line-height: 32, $weight: 600, $color: $black);
-  }
-
-  .code {
-    width: 100%;
-    text-align: end;
-    @include fnt($size: 14, $line-height: 16, $weight: 600, $color: $gray-500);
-  }
 }
 
 .mainDetails {
@@ -51,7 +88,7 @@
     gap: 10px;
 
     .curImage {
-      flex: 1;
+      width: 400px;
       height: 100%;
       background-color: $gray-300;
       object-fit: scale-down;
@@ -77,7 +114,7 @@
         background-color: $gray-300;
         box-shadow: 0 0 0 1px $gray-400;
         cursor: pointer;
-
+        object-fit: scale-down;
         transition: all ease-out 200ms;
 
         &:hover {
@@ -94,6 +131,22 @@
   .productInfo {
     flex: none;
     width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .description {
+      width: 100%;
+      overflow: hidden;
+      .label {
+        @include fnt($size: 24, $line-height: 32, $weight: 600, $color: $black);
+      }
+
+      .text {
+        text-overflow: ellipsis;
+        @include fnt($size: 14, $line-height: 16, $weight: 400, $color: $black);
+      }
+    }
   }
 
   .buyBlock {

@@ -2,33 +2,31 @@
 
 import {ChevronDownSVG, ChevronUpSVG, TrashSVG} from "@/assets";
 import {CartCardStyle} from "@/components/CartCard/styles";
-import {addProductCount, deleteFromCart, minusProductCount, ProductType, useActionSlice} from "@/store";
+import {CartItemType} from "@/api/getCart";
 
 type CartCardPropsType = {
-    product: ProductType,
+    product: CartItemType,
+    deleteProduct?: () => void,
+    addProduct?: () => void,
+    minusProduct?: () => void,
 }
 
-export default function CartCard({product}: CartCardPropsType) {
-    const addProductCountAction = useActionSlice(addProductCount)
-    const minusProductCountAction = useActionSlice(minusProductCount)
-    const deleteFromCartAction = useActionSlice(deleteFromCart)
+export default function CartCard({product, deleteProduct, minusProduct, addProduct}: CartCardPropsType) {
+
 
     return (
         <div className={CartCardStyle.cartCard}>
-            <img src={product.imgs[0]} className={CartCardStyle.image}/>
-            <span className={CartCardStyle.name}>{product.name}</span>
+            <img src={product.product.images[0]} className={CartCardStyle.image}/>
+            <span className={CartCardStyle.name}>{product.product.name}</span>
             <div className={CartCardStyle.counter}>
-                <span className={CartCardStyle.count}>{product.count}</span>
+                <span className={CartCardStyle.count}>{product.quantity}</span>
                 <div className={CartCardStyle.changeCount}>
-                    <button onClick={() => addProductCountAction(product.id)}
-                            className={CartCardStyle.countButton}>
-                        <ChevronUpSVG/></button>
-                    <button onClick={() => minusProductCountAction(product.id)}
-                            className={CartCardStyle.countButton}><ChevronDownSVG/></button>
+                    <button onClick={addProduct} className={CartCardStyle.countButton}><ChevronUpSVG/></button>
+                    <button onClick={minusProduct} className={CartCardStyle.countButton}><ChevronDownSVG/></button>
                 </div>
             </div>
-            <span className={CartCardStyle.cost}>{product.cost} Р</span>
-            <button onClick={() => deleteFromCartAction(product.id)}
+            <span className={CartCardStyle.cost}>{product.product.price} Р</span>
+            <button onClick={deleteProduct}
                     className={CartCardStyle.trashButton}>
                 <TrashSVG/></button>
         </div>

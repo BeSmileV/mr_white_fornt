@@ -10,9 +10,9 @@ services:
       - '3000:3000'
     env_file:
       - .env
-    networks:
-      - my-net
+#    networks:
+#      - my-net
 
-networks:
-  my-net:
-    external: true
+#networks:
+#  my-net:
+#    external: true

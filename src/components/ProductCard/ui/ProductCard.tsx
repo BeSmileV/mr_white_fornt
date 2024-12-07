@@ -26,7 +26,7 @@ export default function ProductCard({
     return (
         <div className={ProductCardStyle.productCard}>
             <div className={ProductCardStyle.images}>
-                <img src={imgs[curImage]} alt="" className={ProductCardStyle.curImage}/>
+                <img src={process.env.NEXT_PUBLIC_BACKEND_API + imgs[curImage]} alt="" className={ProductCardStyle.curImage}/>
                 <div className={ProductCardStyle.switcher}>
                     {imgs.map((_img, i) => <button onClick={() => setCurImage(i)}
                                                    className={clsx(ProductCardStyle.item, {

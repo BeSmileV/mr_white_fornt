@@ -1,0 +1,27 @@
+@use 'src/styles' as *;
+
+.field {
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .label {
+    width: 100%;
+    text-align: start;
+    @include fnt($size: 14, $line-height: 20, $weight: 500, $color: $gray-700);
+  }
+
+  .input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+
+    border: 1px solid $gray-300;
+    box-shadow: 0 1px 2px 0 #1018280D;
+
+    @include fnt($size: 14, $line-height: 20, $weight: 500, $color: $gray-700);
+  }
+}
