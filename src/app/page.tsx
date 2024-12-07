@@ -24,7 +24,7 @@ export default function Page() {
 
     return (
         <div className={MainStyle.main}>
-            <Header/>
+            <Header onSearch={(data) => setProducts(data)}/>
             <div className={MainStyle.productList}>
                 {products.map((item, i) => <ProductCard productName={item.name}
                                                         cost={String(item.price)}

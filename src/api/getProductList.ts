@@ -10,8 +10,8 @@ export type GetProductListResponseType = {
     characteristics: { [key: string]: string }
 }[]
 
-export default async function getProductList(): Promise<GetProductListResponseType | null> {
-    const url = process.env.NEXT_PUBLIC_BACKEND_API + `/api/products/`
+export default async function getProductList(search?: string): Promise<GetProductListResponseType | null> {
+    const url = process.env.NEXT_PUBLIC_BACKEND_API + `/api/products/?search=${search || ''}`
     const response = await sendRequest({
         url: url,
         type: 'GET',

@@ -7,9 +7,12 @@ import {useRouter} from "next/navigation";
 import {deleteCookie, getCookie} from "cookies-next";
 import {COOKIE_JWT_NAME} from '@/configs'
 import {LogoutSVG} from "@/assets";
+import {GetProductListResponseType} from "@/api/getProductList";
+import {getProductList} from "@/api";
 
 type HeaderPropsType = {
     onChange?: (data: string) => void,
+    onSearch?: (products: GetProductListResponseType) => void,
 }
 
 const isLoginCheck = (): boolean => {
@@ -17,16 +20,25 @@ const isLoginCheck = (): boolean => {
     return !!token
 }
 
-export default function Header({onChange}: HeaderPropsType) {
+export default function Header({onSearch}: HeaderPropsType) {
     const router = useRouter()
     const [isLogin, setIsLogin] = useState(false)
+    const [search, setSearch] = useState<string>('')
 
     useEffect(() => {
         setIsLogin(isLoginCheck())
     }, [])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange && onChange(e.target.value);
+        setSearch(e.target.value);
+    }
+
+    const searchProducts = async () => {
+        const response = await getProductList(search)
+
+        if (response) {
+            onSearch && onSearch(response)
+        }
     }
 
     const logout = () => {
@@ -47,7 +59,7 @@ export default function Header({onChange}: HeaderPropsType) {
                            onChange={handleChange}
                            placeholder={'Поиск'}
                            className={HeaderStyle.inputField}/>
-                    <button className={HeaderStyle.icon}><SearchSVG/></button>
+                    <button onClick={searchProducts} className={HeaderStyle.icon}><SearchSVG/></button>
                 </div>
             </div>
             <button onClick={() => router.push('/cart')} className={HeaderStyle.cart}><ShoppingCartSVG/></button>
