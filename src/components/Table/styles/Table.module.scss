@@ -15,6 +15,9 @@
 
 .cell {
   display: flex;
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
 
   &.info {
     @include fnt($size: 14, $line-height: 16, $weight: 400, $color: $gray-500);
