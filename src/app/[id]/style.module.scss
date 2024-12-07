@@ -138,6 +138,7 @@
     .description {
       width: 100%;
       overflow: hidden;
+
       .label {
         @include fnt($size: 24, $line-height: 32, $weight: 600, $color: $black);
       }
@@ -191,12 +192,20 @@
       &.notInCart {
         background-color: $main-color;
         @include fnt($size: 16, $line-height: 24, $weight: 600, $color: $white);
+
+        &:hover {
+          background-color: $main-color-dark;
+        }
       }
 
       &.inCart {
         background-color: $white;
         box-shadow: 0 0 0 1px $main-color;
         @include fnt($size: 16, $line-height: 24, $weight: 600, $color: $main-color);
+
+        &:hover {
+          background-color: $gray-50;
+        }
       }
     }
   }

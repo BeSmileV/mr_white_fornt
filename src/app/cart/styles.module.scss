@@ -66,5 +66,9 @@
     background-color: $main-color;
 
     @include fnt($size: 20, $line-height: 24, $weight: 500, $color: $white);
+
+    &:hover {
+      background-color: $main-color-dark;
+    }
   }
 }

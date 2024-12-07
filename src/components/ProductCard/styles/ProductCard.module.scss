@@ -83,11 +83,19 @@
       @include fnt($size: 16, $line-height: 24, $weight: 600, $color: $main-color);
       border: 1px solid $main-color;
       background-color: $white;
+
+      &:hover {
+        background-color: $gray-50;
+      }
     }
 
     &.notInCart {
       @include fnt($size: 16, $line-height: 24, $weight: 600, $color: $white);
       background-color: $main-color;
+
+      &:hover {
+        background-color: $main-color-dark;
+      }
     }
   }
 }
