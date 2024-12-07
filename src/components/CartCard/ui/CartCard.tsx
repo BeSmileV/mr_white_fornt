@@ -16,7 +16,7 @@ export default function CartCard({product, deleteProduct, minusProduct, addProdu
 
     return (
         <div className={CartCardStyle.cartCard}>
-            <img src={product.product.images[0]} className={CartCardStyle.image}/>
+            <img src={process.env.NEXT_PUBLIC_BACKEND_API + product.product.images[0]} className={CartCardStyle.image}/>
             <span className={CartCardStyle.name}>{product.product.name}</span>
             <div className={CartCardStyle.counter}>
                 <span className={CartCardStyle.count}>{product.quantity}</span>
