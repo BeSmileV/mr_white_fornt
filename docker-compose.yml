@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mediais-frontend
+    container_name: web-front
     ports:
       - '3000:3000'
     env_file:
