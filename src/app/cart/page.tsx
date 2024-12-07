@@ -79,6 +79,25 @@ export default function page() {
         }
     }
 
+    function getProductWord(quantity: number) {
+        const mod10 = quantity % 10;
+        const mod100 = quantity % 100;
+
+        if (mod100 >= 11 && mod100 <= 19) {
+            return "продуктов";
+        }
+
+        if (mod10 === 1) {
+            return "продукт";
+        }
+
+        if (mod10 >= 2 && mod10 <= 4) {
+            return "продукта";
+        }
+
+        return "продуктов";
+    }
+
     return (
         <div className={style.page}>
             <button onClick={() => router.push('/')}
@@ -88,7 +107,7 @@ export default function page() {
             <div className={style.cart}>
                 <div className={style.label}>
                     <span className={style.title}>Корзина</span>
-                    <span className={style.count}>У вас {cart.items.length} продукта в корзине</span>
+                    <span className={style.count}>У вас {cart.items.length} {getProductWord(cart.items.length)} в корзине</span>
                 </div>
                 <div className={style.productList}>
                     {cart.items.map((item, i) => <CartCard product={item}
